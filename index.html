@@ -3,14 +3,40 @@
     <head>
         <title>Portfolio</title>
         <meta charset="UTF-8">
+        <style>
+            body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-height: 100vh;
+                margin: 0;
+            }
+            button {
+                border-radius: 10px;
+                width: 150px;
+                height: 50px;
+                margin:10px;
+            }
+        </style>
     </head>
     <body>
         <table border="2px" width="700">
             <tr>
-                <td><img src="BusinessMinded.png" alt="Profile Picture" style="border:solid black 2px;" width="200"; height="200";></td>
+                <td width="200">
+                    <img src="BusinessMinded.png" alt="Profile Picture" 
+                    style="border:solid black 2px;" width="200"; height="200";>
+                </td>
+                <td style="text-align: center;">
+                    <nav>
+                        <h2><u>Navigation</u></h2>
+                        <a href="Requirements/quiz.html"><button>Quizzes</button></a>
+                        <a href="Requirements/activity.html"><button>Activity</button></a>
+                        <a href="Requirements/laboratory.html"><button>Laboratory</button></a>
+                    </nav>
+                </td>
             </tr>
             <tr>
-                <td>
+                <td colspan="2">
                     <h1>About Me</h1>
                     <p><b>Name: </b>John Carlo B. Sabaysabay</p>
                     <p><b>Birthday: </b>July 06, 2005</p>
@@ -22,7 +48,7 @@
                 </td>
             </tr>
             <tr>
-                <td>
+                <td colspan="2">
                     <h2>Bio Info</h2>
                     <p><b>Education:</b></p>
                     <ul>
@@ -46,4 +72,5 @@
             </tr>
         </table>
     </body>
+
 </html>
