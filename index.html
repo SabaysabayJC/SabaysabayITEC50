@@ -1,76 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>Portfolio</title>
-        <meta charset="UTF-8">
-        <style>
-            body {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                min-height: 100vh;
-                margin: 0;
-            }
-            button {
-                border-radius: 10px;
-                width: 150px;
-                height: 50px;
-                margin:10px;
-            }
-        </style>
-    </head>
-    <body>
-        <table border="2px" width="700">
-            <tr>
-                <td width="200">
-                    <img src="BusinessMinded.png" alt="Profile Picture" 
-                    style="border:solid black 2px;" width="200"; height="200";>
-                </td>
-                <td style="text-align: center;">
-                    <nav>
-                        <h2><u>Navigation</u></h2>
-                        <a href="Requirements/quiz.html"><button>Quizzes</button></a>
-                        <a href="Requirements/activity.html"><button>Activity</button></a>
-                        <a href="Requirements/laboratory.html"><button>Laboratory</button></a>
-                    </nav>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <h1>About Me</h1>
-                    <p><b>Name: </b>John Carlo B. Sabaysabay</p>
-                    <p><b>Birthday: </b>July 06, 2005</p>
-                    <p><b>Age: </b>20</p>
-                    <p><b>Address: </b>Calipi St. San Agustin II, Dasmariñas City Cavite</p>
-                    <p><b>Course: </b>Bachelor of Science in Computer Science</tdp>
-                    <p><b>Section: </b>BSCS - 1B</p>
-                    <p><b>Student Number: </b>251101350
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <h2>Bio Info</h2>
-                    <p><b>Education:</b></p>
-                    <ul>
-                        <li>Francisco E. Barzaga Memorial School</li>
-                        <li>Emmanuel Resurreccion Congressional Integrated High School</li>
-                        <li>Cavite State University Silang Campus</li>
-                    </ul>
-                    <p><b>Skill:</b></p>
-                    <ul>
-                        <li>C++ Coding</li>
-                        <li>HTML</li>
-                        <li>Quick Learner</li>
-                    </ul>
-                    <p><b>Hobby:</b></p>
-                    <ul>
-                        <li>Reading Novel📖</li>
-                        <li>Listening to Music🎶</li>
-                        <li>Gaming🎮</li>
-                    </ul>
-               </td>
-            </tr>
-        </table>
-    </body>
+
+<head>
+    <title>Portfolio</title>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-image: url("Image/background.png");
+            background-size: cover;
+        }
+
+        button {
+            border-radius: 10px;
+            width: 150px;
+            height: 50px;
+            margin: 10px;
+            transition: 0.3s
+        }
+
+        button:hover {
+            background-color: limegreen;
+            transform: scale(1.1);
+        }
+
+        table {
+            border-collapse: collapse;
+            border: 10px solid black;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        td {
+            border: 1px solid black;
+            padding: 10px;
+        }
+    </style>
+    </style>
+</head>
+
+<body style="font-family: sans-serif;">
+    <table border="2px" width="700" style="background-color: white;">
+        <tr>
+            <td width="200">
+                <img src="Image/BusinessMinded.png" alt="Profile Picture" style="border:solid black 2px;" width="200" ;
+                    height="200" ;>
+            </td>
+            <td style="text-align: center;">
+                <nav>
+                    <h2><u>Navigation</u></h2>
+                    <a href="Requirements/quiz.html"><button>Quizzes</button></a>
+                    <a href="Requirements/activity.html"><button>Activity</button></a>
+                    <a href="Requirements/contact.html"><button>Contacts</button></a>
+                </nav>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <h1>About Me</h1>
+                <p><b>Name: </b>John Carlo B. Sabaysabay</p>
+                <p><b>Birthday: </b>July 06, 2005</p>
+                <p><b>Age: </b>20</p>
+                <p><b>Address: </b>Calipi St. San Agustin II, Dasmariñas City Cavite</p>
+                <p><b>Course: </b>Bachelor of Science in Computer Science</tdp>
+                <p><b>Section: </b>BSCS - 1B</p>
+                <p><b>Student Number: </b>251101350
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <h2>Bio Info</h2>
+                <p><b>Education:</b></p>
+                <ul>
+                    <li>Francisco E. Barzaga Memorial School</li>
+                    <li>Emmanuel Resurreccion Congressional Integrated High School</li>
+                    <li>Cavite State University Silang Campus</li>
+                </ul>
+                <p><b>Skill:</b></p>
+                <ul>
+                    <li>C++ Coding</li>
+                    <li>HTML</li>
+                    <li>Quick Learner</li>
+                </ul>
+                <p><b>Hobby:</b></p>
+                <ul>
+                    <li>Reading Novel📖</li>
+                    <li>Listening to Music🎶</li>
+                    <li>Gaming🎮</li>
+                </ul>
+        </tr>
+    </table>
+</body>
 
 </html>
