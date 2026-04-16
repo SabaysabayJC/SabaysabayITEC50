@@ -1,103 +1,221 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <title>Portfolio</title>
-    <meta charset="UTF-8">
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            background-image: url("Image/background.png");
-            background-size: cover;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio Dashboard</title>
 
-        button {
-            border-radius: 10px;
-            width: 150px;
-            height: 50px;
-            margin: 10px;
-            transition: 0.3s
-        }
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
-        button:hover {
-            background-color: limegreen;
-            transform: scale(1.1);
-        }
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: url('Image/background.png');
+      background-size: cover;
+    }
 
-        table {
-            border-collapse: collapse;
-            border: 10px solid black;
-            border-radius: 10px;
-            overflow: hidden;
-        }
+    nav {
+      background: rgba(0,0,0,0.7);
+      padding: 15px;
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+    }
 
-        td {
-            border: 1px solid black;
-            padding: 10px;
-        }
-        .header{
-            font-weight: bold;
-            text-decoration: underline;
-        }
-    </style>
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .page {
+      display: none;
+      padding: 30px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .active { display: block; }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 15px 0;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    .profile {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .profile img {
+      width: 150px;
+      height: 150px;
+      border: 2px solid black;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+    }
+
+    .stat {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border-radius: 8px;
+    }
+
+    button {
+      background: #4f46e5;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
 </head>
+<body>
 
-<body style="font-family: sans-serif;">
-    <table border="2px" width="700" style="background-color: white;">
-        <tr>
-            <td width="200">
-                <img src="Image/BusinessMinded.png" alt="Profile Picture" style="border:solid black 2px;" width="200" ;
-                    height="200" ;>
-            </td>
-            <td style="text-align: center;">
-                <nav>
-                    <h1 class="header">Navigation</h1>
-                    <a href="Requirements/quiz.html"><button onclick = 'alert("KUPAL")'>Quizzes</button></a>
-                    <a href="Requirements/activity.html"><button>Activity</button></a>
-                    <a href="Requirements/contact.html"><button>Contacts</button></a>
-                </nav>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <h2 class="header">About Me</h2>
-                <p><b>Name: </b>John Carlo B. Sabaysabay</p>
-                <p><b>Birthday: </b>July 06, 2005</p>
-                <p><b>Age: </b>20</p>
-                <p><b>Address: </b>Calipi St. San Agustin II, Dasmariñas City Cavite</p>
-                <p><b>Course: </b>Bachelor of Science in Computer Science</tdp>
-                <p><b>Section: </b>BSCS - 1B</p>
-                <p><b>Student Number: </b>251101350
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <h3 class="header">Bio Info</h3>
-                <p><b>Education:</b></p>
-                <ul>
-                    <li>Francisco E. Barzaga Memorial School</li>
-                    <li>Emmanuel Resurreccion Congressional Integrated High School</li>
-                    <li>Cavite State University Silang Campus</li>
-                </ul>
-                <p><b>Skill:</b></p>
-                <ul>
-                    <li>C++ Coding</li>
-                    <li>HTML</li>
-                    <li>Quick Learner</li>
-                </ul>
-                <p><b>Hobby:</b></p>
-                <ul>
-                    <li>Reading Novel📖</li>
-                    <li>Listening to Music🎶</li>
-                    <li>Gaming🎮</li>
-                </ul>
-        </tr>
-    </table>
+<nav>
+  <a href="#" onclick="showPage('home')">Home</a>
+  <a href="#" onclick="showPage('dashboard')">Dashboard</a>
+  <a href="#" onclick="showPage('quiz')">Quiz</a>
+  <a href="#" onclick="showPage('lab')">Lab</a>
+  <a href="#" onclick="showPage('exam')">Exam</a>
+</nav>
+
+<!-- HOME -->
+<div id="home" class="page active">
+
+  <div class="card profile">
+    <img src="Image/BusinessMinded.png">
+    <div>
+      <h2>John Carlo B. Sabaysabay</h2>
+      <p>BS Computer Science - 1B</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>About Me</h2>
+    <p><b>Birthday:</b> July 06, 2005</p>
+    <p><b>Age:</b> 20</p>
+    <p><b>Address:</b> Calipi St. San Agustin II, Dasmariñas City Cavite</p>
+    <p><b>Course:</b> Bachelor of Science in Computer Science</p>
+    <p><b>Student Number:</b> 251101350</p>
+  </div>
+
+  <div class="card">
+    <h3>Education</h3>
+    <ul>
+      <li>Francisco E. Barzaga Memorial School</li>
+      <li>Emmanuel Resurreccion Congressional Integrated High School</li>
+      <li>Cavite State University Silang Campus</li>
+    </ul>
+
+    <h3>Skills</h3>
+    <ul>
+      <li>C++ Coding</li>
+      <li>HTML</li>
+      <li>Quick Learner</li>
+    </ul>
+
+    <h3>Hobbies</h3>
+    <ul>
+      <li>Reading Novel 📖</li>
+      <li>Listening to Music 🎶</li>
+      <li>Gaming 🎮</li>
+    </ul>
+  </div>
+
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboard" class="page">
+  <h1>Dashboard</h1>
+
+  <div class="grid">
+    <div class="stat"><h2 id="quizCount">0</h2><p>Quizzes</p></div>
+    <div class="stat"><h2 id="labCount">0</h2><p>Lab Works</p></div>
+    <div class="stat"><h2 id="examCount">0</h2><p>Exams</p></div>
+  </div>
+
+  <div id="uploads"></div>
+</div>
+
+<!-- QUIZ -->
+<div id="quiz" class="page">
+  <div class="card">
+    <h2>Quiz Upload</h2>
+    <input type="text" id="quizTitle" placeholder="Quiz Title">
+    <input type="file">
+    <input type="file">
+    <button onclick="submitUpload('Quiz','quizTitle')">Submit</button>
+  </div>
+</div>
+
+<!-- LAB -->
+<div id="lab" class="page">
+  <div class="card">
+    <h2>Lab Upload</h2>
+    <input type="text" id="labTitle" placeholder="Description">
+    <input type="file">
+    <input type="file">
+    <button onclick="submitUpload('Lab','labTitle')">Submit</button>
+  </div>
+</div>
+
+<!-- EXAM -->
+<div id="exam" class="page">
+  <div class="card">
+    <h2>Exam Upload</h2>
+    <input type="text" id="examTitle" placeholder="Exam Title">
+    <input type="file">
+    <input type="file">
+    <button onclick="submitUpload('Exam','examTitle')">Submit</button>
+  </div>
+</div>
+
+<script>
+let counts = { Quiz:0, Lab:0, Exam:0 };
+
+function showPage(pageId){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById(pageId).classList.add('active');
+}
+
+function submitUpload(type, titleId){
+  const title = document.getElementById(titleId).value;
+  if(!title){ alert('Enter title'); return; }
+
+  counts[type]++;
+  updateStats();
+
+  const card = document.createElement('div');
+  card.className='card';
+  card.innerHTML = `<h3>${type}</h3><p>${title}</p>`;
+
+  document.getElementById('uploads').appendChild(card);
+}
+
+function updateStats(){
+  quizCount.innerText = counts.Quiz;
+  labCount.innerText = counts.Lab;
+  examCount.innerText = counts.Exam;
+}
+</script>
+
 </body>
-
 </html>
-
