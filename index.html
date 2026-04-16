@@ -85,6 +85,12 @@
       border: none;
       cursor: pointer;
     }
+
+    img.preview {
+      max-width: 100%;
+      margin-top: 10px;
+      border-radius: 10px;
+    }
   </style>
 </head>
 <body>
@@ -99,7 +105,6 @@
 
 <!-- HOME -->
 <div id="home" class="page active">
-
   <div class="card profile">
     <img src="Image/BusinessMinded.png">
     <div>
@@ -139,7 +144,6 @@
       <li>Gaming 🎮</li>
     </ul>
   </div>
-
 </div>
 
 <!-- DASHBOARD -->
@@ -198,16 +202,52 @@ function showPage(pageId){
 
 function submitUpload(type, titleId){
   const title = document.getElementById(titleId).value;
-  if(!title){ alert('Enter title'); return; }
+  const inputs = document.getElementById(titleId).parentElement.querySelectorAll('input[type="file"]');
+  const imageFile = inputs[1].files[0];
 
-  counts[type]++;
+  if(!title || !imageFile){
+    alert('Please complete all fields');
+    return;
+  }
+
+  const reader = new FileReader();
+
+  reader.onload = function(e){
+    let uploads = JSON.parse(localStorage.getItem('uploads')) || [];
+
+    uploads.push({ type, title, image: e.target.result });
+
+    localStorage.setItem('uploads', JSON.stringify(uploads));
+
+    loadUploads();
+  }
+
+  reader.readAsDataURL(imageFile);
+}
+
+function loadUploads(){
+  const container = document.getElementById('uploads');
+  container.innerHTML = '';
+
+  let uploads = JSON.parse(localStorage.getItem('uploads')) || [];
+
+  counts = { Quiz:0, Lab:0, Exam:0 };
+
+  uploads.forEach(item => {
+    counts[item.type]++;
+
+    const card = document.createElement('div');
+    card.className='card';
+    card.innerHTML = `
+      <h3>${item.type}</h3>
+      <p>${item.title}</p>
+      <img src="${item.image}" class="preview">
+    `;
+
+    container.appendChild(card);
+  });
+
   updateStats();
-
-  const card = document.createElement('div');
-  card.className='card';
-  card.innerHTML = `<h3>${type}</h3><p>${title}</p>`;
-
-  document.getElementById('uploads').appendChild(card);
 }
 
 function updateStats(){
@@ -215,6 +255,8 @@ function updateStats(){
   labCount.innerText = counts.Lab;
   examCount.innerText = counts.Exam;
 }
+
+window.onload = loadUploads;
 </script>
 
 </body>
