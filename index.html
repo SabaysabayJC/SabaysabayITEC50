@@ -208,8 +208,7 @@
   <div class="card">
     <h2>Quiz Upload</h2>
     <input type="text" id="quizTitle" placeholder="Quiz Title">
-    <input type="file">
-    <input type="file">
+    <input type="file" accept="image/*">
     <button onclick="submitUpload('Quiz','quizTitle')">Submit</button>
   </div>
 </div>
@@ -218,8 +217,7 @@
   <div class="card">
     <h2>Lab Upload</h2>
     <input type="text" id="labTitle" placeholder="Description">
-    <input type="file">
-    <input type="file">
+    <input type="file" accept="image/*">
     <button onclick="submitUpload('Lab','labTitle')">Submit</button>
   </div>
 </div>
@@ -228,8 +226,7 @@
   <div class="card">
     <h2>Exam Upload</h2>
     <input type="text" id="examTitle" placeholder="Exam Title">
-    <input type="file">
-    <input type="file">
+    <input type="file" accept="image/*">
     <button onclick="submitUpload('Exam','examTitle')">Submit</button>
   </div>
 </div>
@@ -244,8 +241,10 @@ function showPage(pageId){
 
 function submitUpload(type, titleId){
   const title = document.getElementById(titleId).value;
-  const inputs = document.getElementById(titleId).parentElement.querySelectorAll('input[type="file"]');
-  const imageFile = inputs[1].files[0];
+  const imageFile = document.getElementById(titleId)
+  .parentElement
+  .querySelector('input[type="file"]')
+  .files[0];
 
   if(!title || !imageFile){
     alert('Please complete all fields');
