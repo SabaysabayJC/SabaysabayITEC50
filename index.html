@@ -226,16 +226,22 @@ function loadUploads(){
     const card = document.createElement('div');
     card.className = 'card';
     
-    let deleteButton = '';
+    let deleteButtonHtml = '';
     if (index < dynamicUploads.length) {
-      deleteButton = `<button class="delete" onclick="deleteUpload(${index})">Delete</button>`;
+      deleteButtonHtml = `<button class="delete" onclick="deleteUpload(${index})">Delete</button>`;
     }
 
+    // 1. Build the card structure without inline onclick strings
     card.innerHTML = `
       <h3>${item.title}</h3>
-      <img src="${item.image}" class="preview" style="cursor:pointer;" onclick="openImageModal('${item.image}')">
-      ${deleteButton}
+      <img src="${item.image}" class="preview" style="cursor:pointer;">
+      ${deleteButtonHtml}
     `;
+    
+    // 2. Safely attach the click listener directly to the element object in memory
+    card.querySelector('.preview').addEventListener('click', () => {
+      openImageModal(item.image);
+    });
     
     if(item.type === 'Quiz') document.getElementById('quizList').appendChild(card);
     if(item.type === 'Lab') document.getElementById('labList').appendChild(card);
