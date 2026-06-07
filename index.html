@@ -235,56 +235,34 @@
 </div>
 
 <script>
+const hardCodedUploads = [
+  { 
+    type: 'Quiz', 
+    title: 'Quiz 2', 
+    image: 'Image/quiz2.jpg'
+  },
+  { 
+    type: 'Quiz', 
+    title: 'Quiz 3', 
+    image: 'Image/quiz3.jpg'
+  },
+  { 
+    type: 'Lab', 
+    title: 'Sample Carousel', 
+    image: 'Image/sampleCarousel.jpg'
+  },
+  { 
+    type: 'Exam', 
+    title: 'Midterm Exam', 
+    image: 'Image/midTerm.jpg'
+  }
+];
+
 let counts = { Quiz:0, Lab:0, Exam:0 };
 
 function showPage(pageId){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById(pageId).classList.add('active');
-}
-
-function submitUpload(type, titleId){
-  const title = document.getElementById(titleId).value;
-  const imageFile = document.getElementById(titleId)
-  .parentElement
-  .querySelector('input[type="file"]')
-  .files[0];
-
-  if(!title || !imageFile){
-    alert('Please complete all fields');
-    return;
-  }
-
-  const confirmSubmit = confirm('Are you sure you want to submit this file?');
-  if(!confirmSubmit) return;
-
-  const reader = new FileReader();
-
-  reader.onload = function(e){
-    let uploads = JSON.parse(localStorage.getItem('uploads')) || [];
-
-    uploads.push({ type, title, image: e.target.result });
-
-    localStorage.setItem('uploads', JSON.stringify(uploads));
-
-    alert('Upload successful!');
-
-    loadUploads();
-    showPage('dashboard');
-  }
-
-  reader.readAsDataURL(imageFile);
-}
-
-function deleteUpload(index){
-  const confirmDelete = confirm('Are you sure you want to delete this item?');
-  if(!confirmDelete) return;
-
-  let uploads = JSON.parse(localStorage.getItem('uploads')) || [];
-  uploads.splice(index,1);
-  localStorage.setItem('uploads', JSON.stringify(uploads));
-
-  alert('Item deleted!');
-  loadUploads();
 }
 
 function loadUploads(){
@@ -292,7 +270,8 @@ function loadUploads(){
   document.getElementById('labList').innerHTML = '';
   document.getElementById('examList').innerHTML = '';
 
-  let uploads = JSON.parse(localStorage.getItem('uploads')) || [];
+  let dynamicUploads = JSON.parse(localStorage.getItem('uploads')) || [];
+  let uploads = [...dynamicUploads, ...hardCodedUploads];
 
   counts = { Quiz:0, Lab:0, Exam:0 };
 
@@ -300,11 +279,17 @@ function loadUploads(){
     counts[item.type]++;
 
     const card = document.createElement('div');
-    card.className='card';
+    card.className = 'card';
+    
+    let deleteButton = '';
+    if (index < dynamicUploads.length) {
+      deleteButton = `<button class="delete" onclick="deleteUpload(${index})">Delete</button>`;
+    }
+
     card.innerHTML = `
       <h3>${item.title}</h3>
       <img src="${item.image}" class="preview">
-      <button class="delete" onclick="deleteUpload(${index})">Delete</button>
+      ${deleteButton}
     `;
 
     if(item.type === 'Quiz') document.getElementById('quizList').appendChild(card);
@@ -315,10 +300,56 @@ function loadUploads(){
   updateStats();
 }
 
+function submitUpload(type) {
+  const titleInput = document.getElementById(`${type.toLowerCase()}Title`);
+  const fileInput = document.getElementById(`${type.toLowerCase()}File`);
+
+  if (!titleInput.value || !fileInput.files[0]) {
+    alert('Please fill out all fields!');
+    return;
+  }
+
+  const confirmSubmit = confirm('Are you sure you want to submit this file?');
+  if (!confirmSubmit) return;
+
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    let dynamicUploads = JSON.parse(localStorage.getItem('uploads')) || [];
+    
+    dynamicUploads.push({
+      type: type,
+      title: titleInput.value,
+      image: e.target.result
+    });
+
+    localStorage.setItem('uploads', JSON.stringify(dynamicUploads));
+    
+    titleInput.value = '';
+    fileInput.value = '';
+    
+    alert('Item uploaded successfully!');
+    loadUploads();
+  };
+  
+  reader.readAsDataURL(fileInput.files[0]);
+}
+
+function deleteUpload(index){
+  const confirmDelete = confirm('Are you sure you want to delete this item?');
+  if(!confirmDelete) return;
+
+  let dynamicUploads = JSON.parse(localStorage.getItem('uploads')) || [];
+  dynamicUploads.splice(index, 1);
+  localStorage.setItem('uploads', JSON.stringify(dynamicUploads));
+
+  alert('Item deleted!');
+  loadUploads();
+}
+
 function updateStats(){
-  quizCount.innerText = counts.Quiz;
-  labCount.innerText = counts.Lab;
-  examCount.innerText = counts.Exam;
+  document.getElementById('quizCount').innerText = counts.Quiz;
+  document.getElementById('labCount').innerText = counts.Lab;
+  document.getElementById('examCount').innerText = counts.Exam;
 }
 
 window.onload = loadUploads;
