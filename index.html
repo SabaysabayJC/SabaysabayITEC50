@@ -42,19 +42,14 @@
     }
 
     .profile { display: flex; gap: 20px; align-items: center; }
-
     .profile img { width: 150px; height: 150px; border: 2px solid black; }
 
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
-
     .stat { background: white; padding: 20px; border-radius: 12px; text-align: center; }
 
     .section-title { margin-top: 30px; font-size: 20px; font-weight: bold; }
-
     input, button { width: 100%; padding: 10px; margin: 8px 0; border-radius: 8px; }
-
     button { background: #4f46e5; color: white; border: none; cursor: pointer; }
-
     button.delete { background: crimson; margin-top: 10px; }
 
     img.preview {
@@ -64,72 +59,27 @@
       margin-top: 10px;
       border-radius: 10px;
     }
+
     @media (max-width: 768px) {
-
-  nav {
-    flex-wrap: wrap;
-    gap: 10px;
-    padding: 10px;
-  }
-
-  nav a {
-    font-size: 14px;
-  }
-
-  .page {
-    padding: 15px;
-  }
-
-  .card {
-    padding: 15px;
-  }
-
-  .profile {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .profile img {
-    width: 120px;
-    height: 120px;
-  }
-
-  .grid {
-    grid-template-columns: 1fr;
-  }
-
-  .stat {
-    padding: 15px;
-  }
-
-  img.preview {
-    width: 100%;
-    height: auto;
-  }
-
-  button {
-    font-size: 14px;
-  }
-}
-
-@media (max-width: 480px) {
-
-  h1, h2, h3 {
-    font-size: 90%;
-  }
-
-  nav {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .card {
-    border-radius: 10px;
-  }
-}
-    .btnhover a:hover {
-      transform: scale(1.2);
+      nav { flex-wrap: wrap; gap: 10px; padding: 10px; }
+      nav a { font-size: 14px; }
+      .page { padding: 15px; }
+      .card { padding: 15px; }
+      .profile { flex-direction: column; text-align: center; }
+      .profile img { width: 120px; height: 120px; }
+      .grid { grid-template-columns: 1fr; }
+      .stat { padding: 15px; }
+      img.preview { width: 100%; height: auto; }
+      button { font-size: 14px; }
     }
+
+    @media (max-width: 480px) {
+      h1, h2, h3 { font-size: 90%; }
+      nav { flex-direction: column; align-items: center; }
+      .card { border-radius: 10px; }
+    }
+
+    .btnhover a:hover { transform: scale(1.2); }
   </style>
 </head>
 <body>
@@ -185,11 +135,9 @@
     </ul>
   </div>
 </div>
-  </div>
-</div>
 
 <div id="dashboard" class="page">
-  <h1 style = "color : white;">Dashboard</h1>
+  <h1 style="color: white;">Dashboard</h1>
 
   <div class="grid">
     <div class="stat"><h2 id="quizCount">0</h2><p>Quizzes</p></div>
@@ -197,13 +145,13 @@
     <div class="stat"><h2 id="examCount">0</h2><p>Exams</p></div>
   </div>
 
-  <div class="section-title" style = "color : white;">Quizzes</div>
+  <div class="section-title" style="color: white;">Quizzes</div>
   <div id="quizList"></div>
 
-  <div class="section-title" style = "color : white;">Lab Works</div>
+  <div class="section-title" style="color: white;">Lab Works</div>
   <div id="labList"></div>
 
-  <div class="section-title" style = "color : white;">Exams</div>
+  <div class="section-title" style="color: white;">Exams</div>
   <div id="examList"></div>
 </div>
 
@@ -211,8 +159,8 @@
   <div class="card">
     <h2>Quiz Upload</h2>
     <input type="text" id="quizTitle" placeholder="Quiz Title">
-    <input type="file" accept="image/*">
-    <button onclick="submitUpload('Quiz','quizTitle')">Submit</button>
+    <input type="file" id="quizFile" accept="image/*">
+    <button onclick="submitUpload('Quiz')">Submit</button>
   </div>
 </div>
 
@@ -220,8 +168,8 @@
   <div class="card">
     <h2>Lab Upload</h2>
     <input type="text" id="labTitle" placeholder="Description">
-    <input type="file" accept="image/*">
-    <button onclick="submitUpload('Lab','labTitle')">Submit</button>
+    <input type="file" id="labFile" accept="image/*">
+    <button onclick="submitUpload('Lab')">Submit</button>
   </div>
 </div>
 
@@ -229,55 +177,25 @@
   <div class="card">
     <h2>Exam Upload</h2>
     <input type="text" id="examTitle" placeholder="Exam Title">
-    <input type="file" accept="image/*">
-    <button onclick="submitUpload('Exam','examTitle')">Submit</button>
+    <input type="file" id="examFile" accept="image/*">
+    <button onclick="submitUpload('Exam')">Submit</button>
   </div>
 </div>
+
 <div id="imageModal" style="display:none; position:fixed; z-index:1000; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.85); justify-content:center; align-items:center; cursor:pointer;" onclick="this.style.display='none'">
   <img id="modalImg" style="max-width:90%; max-height:90%; border-radius:5px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
 </div>
+
 <script>
 const hardCodedUploads = [
-  { 
-    type: 'Quiz', 
-    title: 'Midterm Quiz 2', 
-    image: 'Image/quiz2.jpg'
-  },
-  { 
-    type: 'Quiz', 
-    title: 'Midterm Quiz 3', 
-    image: 'Image/quiz3.jpg'
-  },
-  { 
-    type: 'Quiz', 
-    title: 'Midterm Long Quiz', 
-    image: 'Image/midtermLongQuiz.png'
-  },
-  { 
-    type: 'Quiz', 
-    title: 'Finals Quiz 1', 
-    image: 'Image/finalQuiz1.png'
-  },
-  { 
-    type: 'Quiz', 
-    title: 'Finals Quiz 2', 
-    image: 'Image/finalQuiz2.png'
-  },
-  { 
-    type: 'Quiz', 
-    title: 'Finals Long Quiz', 
-    image: 'Image/finalLongQuiz.png'
-  },
-  { 
-    type: 'Lab', 
-    title: 'Sample Carousel', 
-    image: 'Image/sampleCarousel.jpg'
-  },
-  { 
-    type: 'Exam', 
-    title: 'Midterm Exam', 
-    image: 'Image/midTerm.jpg'
-  }
+  { type: 'Quiz', title: 'Midterm Quiz 2', image: 'Image/quiz2.jpg' },
+  { type: 'Quiz', title: 'Midterm Quiz 3', image: 'Image/quiz3.jpg' },
+  { type: 'Quiz', title: 'Midterm Long Quiz', image: 'Image/midtermLongQuiz.png' },
+  { type: 'Quiz', title: 'Finals Quiz 1', image: 'Image/finalQuiz1.png' },
+  { type: 'Quiz', title: 'Finals Quiz 2', image: 'Image/finalQuiz2.png' },
+  { type: 'Quiz', title: 'Finals Long Quiz', image: 'Image/finalLongQuiz.png' },
+  { type: 'Lab', title: 'Sample Carousel', image: 'Image/sampleCarousel.jpg' },
+  { type: 'Exam', title: 'Midterm Exam', image: 'Image/midTerm.jpg' }
 ];
 
 let counts = { Quiz:0, Lab:0, Exam:0 };
@@ -285,6 +203,11 @@ let counts = { Quiz:0, Lab:0, Exam:0 };
 function showPage(pageId){
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById(pageId).classList.add('active');
+}
+
+function openImageModal(imageSrc) {
+  document.getElementById('modalImg').src = imageSrc;
+  document.getElementById('imageModal').style.display = 'flex';
 }
 
 function loadUploads(){
@@ -308,16 +231,11 @@ function loadUploads(){
       deleteButton = `<button class="delete" onclick="deleteUpload(${index})">Delete</button>`;
     }
 
-  card.innerHTML = `
-     <h3>${item.title}</h3>
-     <img src="${item.image}" class="preview" style="cursor:pointer;" onclick="openImageModal('${item.image}')">
-     ${deleteButton}
-` ;
-    
-  function openImageModal(imageSrc) {
-    document.getElementById('modalImg').src = imageSrc;
-    document.getElementById('imageModal').style.display = 'flex';
-  }
+    card.innerHTML = `
+      <h3>${item.title}</h3>
+      <img src="${item.image}" class="preview" style="cursor:pointer;" onclick="openImageModal('${item.image}')">
+      ${deleteButton}
+    `;
     
     if(item.type === 'Quiz') document.getElementById('quizList').appendChild(card);
     if(item.type === 'Lab') document.getElementById('labList').appendChild(card);
@@ -331,7 +249,7 @@ function submitUpload(type) {
   const titleInput = document.getElementById(`${type.toLowerCase()}Title`);
   const fileInput = document.getElementById(`${type.toLowerCase()}File`);
 
-  if (!titleInput.value || !fileInput.files[0]) {
+  if (!titleInput || !fileInput || !titleInput.value || !fileInput.files[0]) {
     alert('Please fill out all fields!');
     return;
   }
